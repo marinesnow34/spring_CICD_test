@@ -34,4 +34,4 @@ jobs:
         arguments: build
     - name: ls
       run: |
-        echo $(ls)
+        echo $(ls build/libs/)
