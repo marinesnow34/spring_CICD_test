@@ -23,6 +23,5 @@ jobs:
         key: ${{ secrets.SSH_KEY }}
         timeout: 40s  # 30초 기본        
         script: |
-          docker stats
-          echo $(ls)
+          echo ls
           
