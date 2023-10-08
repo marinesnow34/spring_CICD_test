@@ -23,5 +23,6 @@ jobs:
         key: ${{ secrets.SSH_KEY }}
         timeout: 40s  # 30초 기본        
         script: |
-          echo "테스트 출력"
+          whoami
+          ls
           
