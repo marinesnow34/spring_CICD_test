@@ -1,10 +1,10 @@
-name: Java CI with Gradle
+name: ssh
 
 on:
-  push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+  workflow_run:
+    workflows: ["Java CI with Gradle"]
+    types:
+      - completed
 
 permissions:
   contents: read
