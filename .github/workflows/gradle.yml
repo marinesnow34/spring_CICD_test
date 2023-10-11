@@ -38,6 +38,6 @@ jobs:
     - name: new Discordbot
       uses: sarisia/actions-status-discord@v1.13.0
       with:
-        webhook: ${{ secrets.DISCORD_WEBHOOK }}
+        # webhook: ${{ secrets.DISCORD_WEBHOOK }}
         content: ${{ github.actor == 'marinesnow34' && '<@392607023495118862>' }}
       if: always()
