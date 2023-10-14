@@ -33,9 +33,9 @@ jobs:
     - name: ls
       run: exit 1
     - name: if fail
-      uses: actions/github-script@0.2.0
+      uses: actions/github-script@2.1.0
       with:
-        github-token: ${{github.token}} 
+        github-token: ${{ secrets.GITHUB_TOKEN }} 
         script: |
             await github.pulls.createReview({
               ...context.repo,
