@@ -31,9 +31,7 @@ jobs:
     #   with:
     #     arguments: build
     - name: ls
-      run: |
-        # echo $(ls build/libs/)
-        echo "hi=${{ secrets.DISCORD_WEBHOOK }}" > .env
+      run: exit 1
     - name: if fail
       uses: actions/github-script@0.2.0
       with:
