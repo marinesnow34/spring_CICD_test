@@ -39,13 +39,13 @@ jobs:
         script: |
             await github.pulls.createReview({
               ...context.repo,
-              ${{ github.event.pull_request.number }},
+              pull_number:${{ github.event.pull_request.number }},
               body:"테스트코드를 다시 확인해주세요. ",
               event: "REQUEST_CHANGES"
             })
             await github.pulls.update({
               ...context.repo,
-              ${{ github.event.pull_request.number }},
+              pull_number:${{ github.event.pull_request.number }},
               state: "closed"
             })
       if: failure()                    
