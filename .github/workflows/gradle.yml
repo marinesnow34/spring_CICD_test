@@ -35,8 +35,8 @@ jobs:
     permissions:
       pull-requests: write
     steps:
-      - uses: actions/github-script@v6
-        with:
+    - uses: actions/github-script@v6
+      with:
           github-token: ${{ github.token }}
           script: |
             github.rest.issues.createComment({
