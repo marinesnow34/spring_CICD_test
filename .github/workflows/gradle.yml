@@ -12,8 +12,8 @@ permissions:
 jobs:
   build-and-comment:
     runs-on: ubuntu-latest
-    permissions:
-      pull-requests: write
+    # permissions:
+    #   pull-requests: write
     steps:
       - name: Checkout source code.   # Repo checkout
         uses: actions/checkout@v3
