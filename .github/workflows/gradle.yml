@@ -21,9 +21,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
-    # - name: Set up JDK 17
-    #   uses: actions/setup-java@v3
-    #   with:
+    - name: Set up JDK 17
+      # uses: actions/setup-java@v3
+      # with:
     #     java-version: '17'
     #     distribution: 'corretto'
     # - name: Build with Gradle
@@ -35,8 +35,9 @@ jobs:
     permissions:
       pull-requests: write
     steps:
-      - uses: actions/github-script@v6
-        with:
+    - uses: actions/github-script@v6
+    - name: comment
+      with:
           github-token: ${{ github.token }}
           script: |
             github.rest.issues.createComment({
@@ -44,7 +45,17 @@ jobs:
               owner: context.repo.owner,
               repo: context.repo.repo,
               body: '👋 Thanks for reporting!'
-            })                 
+            })        
+    - name: close
+      with:
+        script: |
+          github.rest.pulls.update({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            pull_number: context.payload.pull_request.number,
+            state: 'closed'
+          })
+        
     
     # - name: if fail
     #   uses: actions/github-script@0.2.0
