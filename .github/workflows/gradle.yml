@@ -33,12 +33,17 @@ jobs:
     - name: ls
       run: exit 1
     
-    - name: close
-      uses: superbrothers/close-pull-request@v3
+    - name: Auto Approve
+  # You may pin to the exact commit or the version.
+  # uses: hmarr/auto-approve-action@44888193675f29a83e04faf4002fa8c0b537b1e4
+      uses: hmarr/auto-approve-action@v3.2.1
       with:
-        # Optional. Post a issue comment just before closing a pull request.
-        comment: "We do not accept PRs. If you have any questions, please feel free to contact us."
-      if: failure()
+        # The GITHUB_TOKEN secret
+        # (optional) The ID of a pull request to auto-approve. By default, this action tries to use the pull_request event payload.
+        # pull-request-number: # optional
+        # (optional) The message of the pull request review.
+        review-message: "빌드 성공"
+    
     # - name: if fail
     #   uses: actions/github-script@0.2.0
     #   with:
