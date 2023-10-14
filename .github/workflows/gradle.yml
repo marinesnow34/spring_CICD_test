@@ -10,8 +10,10 @@ permissions:
   contents: read
 
 jobs:
-  build:
+  build-and-comment:
     runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
     steps:
       - uses: actions/checkout@v3
       # - name: Set up JDK 17
@@ -25,13 +27,8 @@ jobs:
       #     arguments: build
         run: exit 1
       
-  comment-and-close:
-    needs: build
-    runs-on: ubuntu-latest
-    permissions:
-      pull-requests: write
-    steps:
-      - name: Comment and Close PR
+      - name: Comment on failure
+        if: failure()
         uses: actions/github-script@v6
         with:
           github-token: ${{ github.token }}
@@ -49,4 +46,3 @@ jobs:
               pull_number: context.payload.pull_request.number,
               state: 'closed'
             });
-        if: always() && needs.build.result == 'failure'
