@@ -30,14 +30,13 @@ jobs:
     #   uses: gradle/gradle-build-action@842c587ad8aa4c68eeba24c396e15af4c2e9f30a #2.9.0
     #   with:
     #     arguments: build
-  comment:
+  comment-and-close:
     runs-on: ubuntu-latest
     permissions:
       pull-requests: write
     steps:
-    - uses: actions/github-script@v6
-    - name: comment
-      with:
+      - uses: actions/github-script@v6
+        with:
           github-token: ${{ github.token }}
           script: |
             github.rest.issues.createComment({
@@ -45,16 +44,21 @@ jobs:
               owner: context.repo.owner,
               repo: context.repo.repo,
               body: '👋 Thanks for reporting!'
-            })        
-    - name: close
-      with:
-        script: |
-          github.rest.pulls.update({
-            owner: context.repo.owner,
-            repo: context.repo.repo,
-            pull_number: context.payload.pull_request.number,
-            state: 'closed'
-          })
+            });
+            
+            github.rest.pulls.update({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: context.payload.pull_request.number,
+              state: 'closed'
+            });
+
+
+
+
+
+
+
         
     
     # - name: if fail
