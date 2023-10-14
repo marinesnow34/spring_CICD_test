@@ -14,10 +14,14 @@ jobs:
     runs-on: ubuntu-latest
     permissions: write-all
     steps:
-      - name: branch
+      - name: Check branch
         run: |
-          echo ${{ github.head_ref }}
-          echo ${{ github.base_ref }}
+          echo "Head branch is: ${{ github.head_ref }}"
+          echo "Base branch is: ${{ github.base_ref }}"
+          if [[ "${{ github.head_ref }}" != "test" ]]; then
+            echo "Head branch is not 'test'. Exiting..."
+            exit 1
+          fi
       - name: Checkout source code
         uses: actions/checkout@v3
 
