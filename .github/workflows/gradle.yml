@@ -12,7 +12,7 @@ permissions:
 jobs:
   build-and-comment:
     runs-on: ubuntu-latest
-    # permissions: write-all
+    permissions: write-all
       # pull-requests: write
     steps:
       - name: Checkout source code.   # Repo checkout
