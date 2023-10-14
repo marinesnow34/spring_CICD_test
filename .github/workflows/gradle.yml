@@ -19,10 +19,11 @@ jobs:
       #   with:
       #     java-version: '17'
       #     distribution: 'corretto'
-      # - name: Build with Gradle
+      - name: Build with Gradle
       #   uses: gradle/gradle-build-action@842c587ad8aa4c68eeba24c396e15af4c2e9f30a #2.9.0
       #   with:
       #     arguments: build
+        run: exit 1
       
   comment-and-close:
     runs-on: ubuntu-latest
@@ -38,7 +39,7 @@ jobs:
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: '👋 Thanks for reporting!'
+              body: '빌드 실패'
             });
             
             github.rest.pulls.update({
@@ -47,3 +48,4 @@ jobs:
               pull_number: context.payload.pull_request.number,
               state: 'closed'
             });
+        if: failure()
