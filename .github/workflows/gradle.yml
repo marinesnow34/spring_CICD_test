@@ -6,13 +6,11 @@ on:
   pull_request:
     branches: [ "main" ]
 
-permissions:
-  contents: read
-
 jobs:
-  build-and-comment:
+  build:
     runs-on: ubuntu-latest
-    permissions: write-all
+    outputs:
+      status: ${{ job.status }}
     steps:
       - name: branch
         run: |
@@ -36,8 +34,13 @@ jobs:
       # - name: Build
       #   run: exit 1
 
+  comment:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions: write-all
+    steps:
       - name: Comment on failure and close PR
-        if: failure()
+        if: needs.build.outputs.status == 'failure'
         uses: actions/github-script@v6
         with:
           github-token: ${{ github.token }}
@@ -57,7 +60,7 @@ jobs:
             });
 
       - name: Auto approve pull request
-        if: success()
+        if: needs.build.outputs.status == 'success'
         uses: actions/github-script@v6
         with:
           github-token: ${{ github.token }}
