@@ -9,25 +9,37 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    outputs:
-      status: ${{ job.status }}
     steps:
-      - name: Check branch
+      - name: branch
         run: |
-          echo "Head branch is: ${{ github.head_ref }}"
-          echo "Base branch is: ${{ github.base_ref }}"
-          if [[ "${{ github.head_ref }}" != "test" ]]; then
-            echo "Head branch is not 'test'. Exiting..."
-            exit 1
-          fi
+          echo ${{ github.head_ref }}
+          echo ${{ github.base_ref }}
+      - name: Checkout source code
+        uses: actions/checkout@v3
+
+      # Uncomment these lines if you want to set up JDK and use Gradle to build.
+      # - name: Set up JDK 17
+      #   uses: actions/setup-java@v3
+      #   with:
+      #     java-version: '17'
+      #     distribution: 'corretto'
+      # - name: Build with Gradle
+      #   uses: gradle/gradle-build-action@842c587ad8aa4c68eeba24c396e15af4c2e9f30a #2.9.0
+      #   with:
+      #     arguments: build
+
+      # This step will always fail; replace it with your actual build step.
+      # - name: Build
+      #   run: exit 1
 
   comment:
     needs: build
     runs-on: ubuntu-latest
     permissions: write-all
+    if: always() # Ensures this job always runs after 'build'
     steps:
       - name: Comment on failure and close PR
-        if: needs.build.outputs.status == 'failure'
+        if: needs.build.result == 'failure'
         uses: actions/github-script@v6
         with:
           github-token: ${{ github.token }}
@@ -36,7 +48,7 @@ jobs:
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: '브랜치 확인!!'
+              body: '빌드 실패'
             });
             
             github.rest.pulls.update({
@@ -47,7 +59,7 @@ jobs:
             });
 
       - name: Auto approve pull request
-        if: needs.build.outputs.status == 'success'
+        if: needs.build.result == 'success'
         uses: actions/github-script@v6
         with:
           github-token: ${{ github.token }}
