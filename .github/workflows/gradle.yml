@@ -29,8 +29,8 @@ jobs:
       #     arguments: build
 
       # This step will always fail; replace it with your actual build step.
-      - name: Build
-        run: exit 1
+      # - name: Build
+      #   run: exit 1
 
   comment:
     needs: build
