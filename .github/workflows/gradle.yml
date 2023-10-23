@@ -52,6 +52,7 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: build
+          path: build
       - name: ls
         run: echo $(ls)
       - name: Comment on failure and close PR
