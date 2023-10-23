@@ -31,6 +31,13 @@ jobs:
       - name: ls
         run: echo $(ls)
 
+      - name: file copy
+        uses: actions/upload-artifact@v3
+        with:
+          name: build
+          path: build
+        
+
       # This step will always fail; replace it with your actual build step.
       # - name: Build
       #   run: exit 1
@@ -41,6 +48,11 @@ jobs:
     permissions: write-all
     if: always() # Ensures this job always runs after 'build'
     steps:
+      - name: file copy
+        uses: actions/upload-artifact@v3
+        with:
+          name: build
+          path: build
       - name: ls
         run: echo $(ls)
       - name: Comment on failure and close PR
