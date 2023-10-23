@@ -39,8 +39,8 @@ jobs:
         
 
       # This step will always fail; replace it with your actual build step.
-      # - name: Build
-      #   run: exit 1
+      - name: Build
+        run: exit 1
 
   comment:
     needs: build
@@ -48,6 +48,13 @@ jobs:
     permissions: write-all
     if: always() # Ensures this job always runs after 'build'
     steps:
+      - name: new Discordbot
+        uses: sarisia/actions-status-discord@v1.13.0
+        with:
+          webhook: ${{ secrets.DISCORD_WEBHOOK }}
+          content: ${{ github.actor == 'marinesnow34' && '<@392607023495118862>' }}
+          # nofail: false
+        if: always()
       - name: file copy
         uses: actions/download-artifact@v3
         with:
