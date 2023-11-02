@@ -34,5 +34,5 @@ jobs:
       - name: ls
         run: echo $(ls)
       - name: ls
-        run: echo $(ls build)
+        run: echo $(ls build/libs)
 
