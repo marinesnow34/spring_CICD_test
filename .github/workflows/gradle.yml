@@ -26,13 +26,13 @@ jobs:
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
       - name: Build with Gradle
-        uses: gradle/gradle-build-action@v2.9.0
-        with:
+        # uses: gradle/gradle-build-action@v2.9.0
+        # with:
           # arguments: build
-          run: ./gradlew clean build
+        run: ./gradlew clean build
       
       - name: ls
         run: echo $(ls)
       - name: ls
-        run: echo $(ls src)
+        run: echo $(ls build)
 
