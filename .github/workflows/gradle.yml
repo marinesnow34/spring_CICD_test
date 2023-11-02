@@ -17,15 +17,15 @@ jobs:
       - name: Checkout source code
         uses: actions/checkout@v3
       - name: ls
-        run: echo $(ls)
+        run: echo $(ls src/main/resources)
         
       - name: Set application.properties from secrets
         run: |
-          echo "#PORT=" > /src/main/resources/application.properties
-          echo "#WDS_SOCKET_PORT=0" >> /src/main/resources/application.properties
-          echo "#NODE_PATH=src/" >> /src/main/resources/application.properties
-          echo "#REACT_APP_API_ROOT=" >> /src/main/resources/application.properties
-          echo "#REACT_APP_HOME_URL=${{ secrets.TEST_REACT_APP_HOME_URL }}" >> /src/main/resources/application.properties
+          echo "#PORT=" > src/main/resources/application.properties
+          echo "#WDS_SOCKET_PORT=0" >> src/main/resources/application.properties
+          echo "#NODE_PATH=src/" >> src/main/resources/application.properties
+          echo "#REACT_APP_API_ROOT=" >> src/main/resources/application.properties
+          echo "#REACT_APP_HOME_URL=${{ secrets.TEST_REACT_APP_HOME_URL }}" >> src/main/resources/application.properties
       - name: cat application.properties
         run: |
           echo $(cat /src/main/resources/application.properties)
