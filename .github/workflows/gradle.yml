@@ -86,5 +86,5 @@ jobs:
           file: ./Dockerfile
           push: true
           tags: |
-            ghcr.io/${{ github.repository_owner }}/spring_CICD_test:latest      
+            ghcr.io/${{ github.repository_owner }}/spring_cicd_test:latest      
 
