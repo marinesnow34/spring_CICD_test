@@ -62,20 +62,31 @@ jobs:
           # Git short commit, use git version tag
           tags: |
             type=sha
+      - name: Set env
+        run: echo "RELEASE_VERSION=${GITHUB_REF#refs/*/v}" >> $GITHUB_ENV
       - name: rm
         run: rm build/libs/*plain.jar
       - name: ls
         run: echo $(ls)
       - name: ls
         run: echo $(ls build/libs)
-      - name: Build and push Docker image
-        id: build
+      # - name: Build and push Docker image
+      #   id: build
+      #   uses: docker/build-push-action@v5.0.0
+      #   with:
+      #     context: .
+      #     file: Dockerfile # repository 기준 도커파일 위치
+      #     push: true
+      #     tags: ${{ steps.meta.outputs.tags }}
+      #     labels: ${{ steps.meta.outputs.labels }}
+      - name: Build and push
         uses: docker/build-push-action@v5.0.0
         with:
           context: .
-          file: Dockerfile # repository 기준 도커파일 위치
+          file: ./Dockerfile
           push: true
-          tags: ${{ steps.meta.outputs.tags }}
-          labels: ${{ steps.meta.outputs.labels }}
+          tags: |
+            ghcr.io/${{ github.repository_owner }}/my-container-test:latest
+            ghcr.io/${{ github.repository_owner }}/my-container-test:${{ env.RELEASE_VERSION }}
       
 
