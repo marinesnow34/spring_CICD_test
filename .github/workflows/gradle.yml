@@ -64,6 +64,10 @@ jobs:
             type=sha
       - name: rm
         run: rm build/libs/*plain.jar
+      - name: ls
+        run: echo $(ls)
+      - name: ls
+        run: echo $(ls build/libs)
       - name: Build and push Docker image
         id: build
         uses: docker/build-push-action@v5.0.0
@@ -73,8 +77,5 @@ jobs:
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
-      - name: ls
-        run: echo $(ls)
-      - name: ls
-        run: echo $(ls build/libs)
+      
 
