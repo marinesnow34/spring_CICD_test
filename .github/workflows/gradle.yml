@@ -62,9 +62,11 @@ jobs:
           # Git short commit, use git version tag
           tags: |
             type=sha
+      - name: rm
+        run: rm build/libs/*plain.jar
       - name: Build and push Docker image
         id: build
-        uses: docker/build-push-action@ad44023a93711e3deb337508980b4b5e9bcdc5dc
+        uses: docker/build-push-action@v5.0.0
         with:
           context: .
           file: Dockerfile # repository 기준 도커파일 위치
