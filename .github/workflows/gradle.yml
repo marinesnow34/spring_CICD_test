@@ -35,6 +35,8 @@ jobs:
         uses: actions/checkout@v3
       - name: ls
         run: echo $(ls src/main/resources)
+      - name: redis test
+        run: echo $(redis-cli set key_name value_name)
         
       - name: Set application.properties from secrets
         run: |
