@@ -2,3 +2,4 @@
 FROM amazoncorretto:17
 COPY ./build/libs/*.jar /app/spring-app.jar
 ENTRYPOINT ["java","-jar","/app/spring-app.jar"]
+ 
